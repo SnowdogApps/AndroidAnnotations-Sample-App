@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AndroidAnnotationsTest</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="alreadyOpenedMessage">Window Already Opened:</string>
+    <string name="alreadyClosedMessage">Window Already Closed:</string>
+    <string name="open">OPEN</string>
+    <string name="close">CLOSE</string>
+    <string name="open_all">OPEN ALL</string>
+    <string name="close_all">CLOSE ALL</string>
+</resources>
