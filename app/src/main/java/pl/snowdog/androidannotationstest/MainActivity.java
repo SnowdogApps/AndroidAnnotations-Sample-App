@@ -1,6 +1,8 @@
 package pl.snowdog.androidannotationstest;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.animation.AlphaAnimation;
@@ -12,10 +14,12 @@ import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -57,12 +61,27 @@ public class MainActivity extends ActionBarActivity {
     OttoBus bus;
 
 
+    CorridorFragment programaticallFragment;
+
+    @FragmentById(R.id.corridorFragmentView)
+    CorridorFragment corridorFragment;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bus.register(this);
         window1.setId(1);
         window2.setId(2);
+
+
+        programaticallFragment = new CorridorFragment_().builder().fragmentTitle("Programaticall Fragment").build();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.programaticallFragment, programaticallFragment);
+        ft.commit();
     }
 
     @Override
@@ -106,13 +125,14 @@ public class MainActivity extends ActionBarActivity {
     void openAllWindows() {
         window1.openWindow();
         window2.openWindow();
-
+        corridorFragment.setTitle("Fragment says: all windows opened, what a draft!");
     }
 
     @Click
     void closeAllWindows() {
         window1.closeWindow();
         window2.closeWindow();
+        corridorFragment.setTitle("Fragment says: all windows closed, the draft is gone!");
     }
 
     @UiThread
